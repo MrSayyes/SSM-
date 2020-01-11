@@ -12,7 +12,7 @@ public class CustomerMapperImpl extends SqlSessionDaoSupport implements Customer
 	public void insertCustomer(Customer customer) {
 		SqlSession sqlSession = this.getSqlSession();
 		sqlSession.insert("insertCustomer", customer);
-		// ÕâÀï²»ĞèÒªÊÂÎñÌá½»£¬ÒòÎªspring¹ı³Ì»á´¦Àí
+		// è¿™é‡Œä¸éœ€è¦äº‹åŠ¡æäº¤ï¼Œå› ä¸ºspringè¿‡ç¨‹ä¼šå¤„ç†
 	}
 
 }
