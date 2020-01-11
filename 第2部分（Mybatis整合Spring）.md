@@ -8,6 +8,7 @@
 
 Mybstis-Spring的jar包下载地址：
 https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+
 Spring自身包下载地址：
 https://repo.spring.io/release/org/springframework/spring/
 
@@ -46,7 +47,7 @@ public class CustomerMapperImpl extends SqlSessionDaoSupport implements Customer
 
 ——引入连接池jar包，用于连接池配置
 
-![img](file:///C:\Users\sayyes\AppData\Local\Temp\ksohtml11044\wps2.jpg)
+![image](https://user-images.githubusercontent.com/19297162/72202397-f7c8e400-3499-11ea-952c-809035a628af.png)
 
 ——删除sqlMapConfig.xml
 

@@ -35,11 +35,17 @@ log4j.rootLogger=debug, stdout
 ## 1.3建立数据库和表
 
 建库：create database ssm;
+
 建表：create table customer(
+
 id int(5) primary key auto_increment,
+
 name char(10),
+
 telephone char(11),
+
 address char(100)
+
 );
 
 ## 1.4建立实体类（Customer.java）
