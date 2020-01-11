@@ -11,7 +11,7 @@ https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
 Spring自身包下载地址：
 https://repo.spring.io/release/org/springframework/spring/
 
-![img](file:///C:\Users\sayyes\AppData\Local\Temp\ksohtml11044\wps1.jpg)
+![image](https://user-images.githubusercontent.com/19297162/72202304-b4ba4100-3498-11ea-9855-f2616282b159.png)
 
 ## 2.2MyBatis整合Spring的三种方式
 

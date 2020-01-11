@@ -4,14 +4,14 @@
 
 ——资源见SSMPro1工程
 
-![img](file:///C:\Users\sayyes\AppData\Local\Temp\ksohtml4020\wps3.jpg)
+![image](https://user-images.githubusercontent.com/19297162/72202295-994f3600-3498-11ea-99ee-fa7f064f9fd8.png)
 
 ## 1.1导入必须的包
 
 Mybstis下载地址：https://github.com/mybatis/mybatis-3/releases
 Mysql下载地址：https://dev.mysql.com/downloads/connector/j/
 
-![img](file:///C:\Users\sayyes\AppData\Local\Temp\ksohtml4020\wps4.jpg)
+![image](https://user-images.githubusercontent.com/19297162/72202298-9eac8080-3498-11ea-9241-e088c2df0570.png)
 
 ## 1.2建立log4j.properties（日志管理）
 
