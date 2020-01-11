@@ -9,15 +9,15 @@ import ssm.entity.Customer;
 class Test {
 	@org.junit.jupiter.api.Test
 	void test() {
-		// 加载spring配置文件
+		// 鍔犺浇spring閰嶇疆鏂囦欢
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-		// 获取对象
+		// 鑾峰彇瀵硅薄
 		CustomerMapper customerMapper = (CustomerMapper) ac.getBean("customerMapper");
-		// 调用方法
+		// 璋冪敤鏂规硶
 		Customer customer = new Customer();
-		customer.setName("小7");
+		customer.setName("灏忎竷");
 		customer.setTelephone("555");
-		customer.setAddress("中国成都");
+		customer.setAddress("涓浗鎴愰兘");
 		customerMapper.insertCustomer(customer);
 	}
 }

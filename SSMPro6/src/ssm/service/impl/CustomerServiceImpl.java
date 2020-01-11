@@ -12,12 +12,12 @@ import ssm.service.CustomerService;
 @Service("customerService")
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
-	// 注入Mapper对象
+	// 娉ㄥ叆Mapper瀵硅薄
 	@Resource
 	private CustomerMapper customerMapper;
 
 	public void insertCustomer(Customer customer) {
-		// 该方法可以在两个insert之间添加异常来看事物管理是否正常
+		// 璇ユ柟娉曞彲浠ュ湪涓や釜insert涔嬮棿娣诲姞寮傚父鏉ョ湅浜嬬墿绠＄悊鏄惁姝ｅ父
 		customerMapper.insertCustomer(customer);
 	}
 }

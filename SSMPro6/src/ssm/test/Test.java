@@ -10,14 +10,14 @@ import ssm.service.CustomerService;
 class Test {
 	@org.junit.jupiter.api.Test
 	void test() {
-		// ¼ÓÔØspringÅäÖÃÎÄ¼ş
+		// åŠ è½½springé…ç½®æ–‡ä»¶
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-		// beanÖµÈ¡×Ô@service×¢½âÀà£¬Èç¹û@service²»¼ÓÃû×Ö£¬¾ÍÊÇÀàÃû£¬Ê××ÖÄ¸Ğ¡Ğ´
+		// beanå€¼å–è‡ª@serviceæ³¨è§£ç±»ï¼Œå¦‚æœ@serviceä¸åŠ åå­—ï¼Œå°±æ˜¯ç±»åï¼Œé¦–å­—æ¯å°å†™
 		CustomerService customerService = (CustomerService) ac.getBean("customerService");
 		Customer customer = new Customer();
-		customer.setName("Ğ¡9");
+		customer.setName("å°ä¹");
 		customer.setTelephone("7777");
-		customer.setAddress("ÖĞ¹úÉîÛÚ");
+		customer.setAddress("ä¸­å›½æ·±åœ³");
 		customerService.insertCustomer(customer);
 	}
 }

@@ -5,7 +5,7 @@ import ssm.entity.Customer;
 public interface CustomerMapper {
 
 	/**
-	 * Ìí¼ÓÒ»¸ö¿Í»§
+	 * æ·»åŠ ä¸€ä¸ªå®¢æˆ·
 	 */
 	public void insertCustomer(Customer customer);
 }
