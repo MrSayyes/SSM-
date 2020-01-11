@@ -14,23 +14,23 @@ import ssm.entity.Customer;
 class Test {
 	@org.junit.jupiter.api.Test
 	void test() throws IOException {
-		// 加载配置文件
+		// 鍔犺浇閰嶇疆鏂囦欢
 		Reader reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-		// 创建SqlSessionFactory
+		// 鍒涘缓SqlSessionFactory
 		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
-		// 打开SqlSession
+		// 鎵撳紑SqlSession
 		SqlSession sqlSession = sessionFactory.openSession();
-		// 获取Mapper接口对象
+		// 鑾峰彇Mapper鎺ュ彛瀵硅薄
 		CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
-		// 操作
+		// 鎿嶄綔
 		Customer customer = new Customer();
-		customer.setName("李四");
+		customer.setName("鏉庡洓");
 		customer.setTelephone("222");
-		customer.setAddress("中国北京");
+		customer.setAddress("涓浗鍖椾含");
 		customerMapper.insertCustomer(customer);
-		// 提交事务
+		// 鎻愪氦浜嬪姟
 		sqlSession.commit();
-		// 关闭资源
+		// 鍏抽棴璧勬簮
 		sqlSession.close();
 	}
 }

@@ -1,7 +1,7 @@
 package ssm.entity;
 
 /**
- * ¿Í»§ÊµÌåÀà
+ * å®¢æˆ·å®ä½“ç±»
  * 
  * @author sayyes
  */
@@ -11,12 +11,12 @@ public class Customer {
 	private String telephone;
 	private String address;
 
-	// ÎŞ²Î¹¹Ôìº¯Êı
+	// æ— å‚æ„é€ å‡½æ•°
 	public Customer() {
 
 	}
 
-	// ÓĞ²Î¹¹Ôìº¯Êı
+	// æœ‰å‚æ„é€ å‡½æ•°
 	public Customer(int id, String name, String telephone, String address) {
 		this.id = id;
 		this.name = name;
