@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- 该文件编写mybatis中的mapper接口里面的方法提供一个对应的语句 -->
+<mapper namespace="ssm.dao.CustomerMapper">
+	<!-- 通过namespace.id唯一处理sql -->
+	<insert id="insertCustomer" parameterType="ssm.entity.Customer">
+		insert into customer
+		(
+			name,
+			telephone,
+			address
+		)
+		values
+		(
+			#{name},
+			#{telephone},
+			#{address}
+		);
+	</insert>
+</mapper>
