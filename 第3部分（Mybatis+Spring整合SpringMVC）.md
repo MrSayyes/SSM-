@@ -136,3 +136,6 @@ public class CustomerController {
 </html>
 ```
 
+## 3.6浏览器运行测试
+
+http://localhost:8080/SSMPro6/customer/test.action
