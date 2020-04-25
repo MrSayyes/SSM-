@@ -63,9 +63,11 @@ Maven仓库：https://mvnrepository.com/
     </dependency>
     <!-- c3p0连接池、mysql驱动 -->
     <dependency>
-        <groupId>c3p0</groupId>
+        <groupId>com.mchange</groupId>
         <artifactId>c3p0</artifactId>
-        <version>0.9.1.2</version>
+        <version>0.9.5.2</version>
+        <type>jar</type>
+        <scope>compile</scope>
     </dependency>
     <dependency>
         <groupId>mysql</groupId>
@@ -88,7 +90,7 @@ Maven仓库：https://mvnrepository.com/
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.12</version>
-        <scope>test</scope><!-- 测试使用 -->
+        <!-- <scope>test</scope> -->
     </dependency>
 </dependencies>
 ```
@@ -269,4 +271,222 @@ Maven仓库：https://mvnrepository.com/
 ```
 
 #### 4）mybatis配置文件：mybatis-config.xml
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!--驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <package name="com.sayyes.bean"/>
+    </typeAliases>
+</configuration>
+
+```
+
+### 5、建表
+
+- tbl_emp员工表
+
+```
+create table tbl_emp(
+    emp_id int(11) primary key auto_increment,
+    emp_name varchar(255),
+    gender char(1),
+    email varchar(255),
+    d_id int(11)
+);
+```
+
+- tbl_dept部门表
+
+```
+create table tbl_dept(
+    dept_id int(11) primary key auto_increment,
+    dept_name varchar(255)
+);
+```
+
+### 6、mybatis generator逆向工程
+
+#### 1）maven引入mybatis generator core
+
+```xml
+<!--mybatis generator core逆向工程-->
+<dependency>
+    <groupId>org.mybatis.generator</groupId>
+    <artifactId>mybatis-generator-core</artifactId>
+    <version>1.4.0</version>
+</dependency>
+```
+
+#### 2）查看官方文档Quick Start Guide
+
+- 新增配置文件mybatis-generator.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!--生成文件不添加大量注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--配置数据库连接-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--指定javaBean生成的位置-->
+        <javaModelGenerator targetPackage="com.sayyes.bean" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--指定sql映射文件mapper生成的位置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--指定dao接口生成的位置，mapper接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.sayyes.dao" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--指定每个表的生成策略-->
+        <!--表名：生成的javaBean类-->
+        <table tableName="tbl_emp" domainObjectName="Employee"></table>
+        <table tableName="tbl_dept" domainObjectName="Department"></table>
+    </context>
+</generatorConfiguration>
+```
+
+#### 3）编写类去执行生成，如MybatisGeneratorTest.java
+
+```java
+package com.sayyes.test;
+
+import org.mybatis.generator.api.MyBatisGenerator;
+import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.xml.ConfigurationParser;
+import org.mybatis.generator.internal.DefaultShellCallback;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author sayyes
+ * @date 2020/4/20
+ */
+public class MybatisGeneratorTest {
+    public static void main(String[] args) throws Exception {
+        List<String> warnings = new ArrayList<String>();
+        boolean overwrite = true;
+        File configFile = new File("mybatis-generator.xml");
+        ConfigurationParser cp = new ConfigurationParser(warnings);
+        Configuration config = cp.parseConfiguration(configFile);
+        DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
+        myBatisGenerator.generate(null);
+    }
+}
+
+```
+
+#### 4）、根据需要调整逆向工程生成内容，比如联合查询，员工信息查询要查询部门信息
+
+这里调整员工的xml，bean类，dao类
+
+### 7、测试Mybatis与数据库是否连通
+
+#### 1）新增测试类
+
+```java
+package com.sayyes.test;
+
+import com.sayyes.bean.Department;
+import com.sayyes.bean.Employee;
+import com.sayyes.dao.DepartmentMapper;
+import com.sayyes.dao.EmployeeMapper;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+/**
+ * 测试dao层
+ *
+ * @author sayyes
+ * @date 2020/4/22
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+public class MybatisTest {
+    @Autowired
+    DepartmentMapper departmentMapper;
+
+    @Autowired
+    EmployeeMapper employeeMapper;
+
+    @Autowired
+    SqlSession sqlSession;
+    @Test
+    public void test() {
+        //传统方式：创建spring的ioc容器->获取mapper
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+//        DepartmentMapper bean = ac.getBean(DepartmentMapper.class);
+//        System.out.println(bean);//可以输出对象
+
+        /*
+            spring单元测试方式
+            1、Maven引入SpringTest模块：添加注解
+                @RunWith(SpringJUnit4ClassRunner.class)
+                @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+            2、然后就可以Autowired
+         */
+        //1、部门表测试
+//        departmentMapper.insertSelective(new Department(null,"开发部"));
+//        departmentMapper.insertSelective(new Department(null,"测试部"));
+
+        //2、员工表测试
+//        employeeMapper.insertSelective(new Employee(null, "张三", "M", "zhangsan@qq.com", 1));
+//        employeeMapper.insertSelective(new Employee(null, "李四", "M", "lisi@qq.com", 2));
+        //批量插入使用sqlsession
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        for (int i=0;i<10;i++){
+            mapper.insertSelective(new Employee(null, "z"+i, "F", "z"+i+"@qq.com", 2));
+        }
+    }
+}
+
+```
+
+#### 2）额外调整
+
+- maven引入SpringTest模块
+
+- Spring里面添加批量sqlSession处理
+- 对于员工bean类和部门bean类添加有参无参构造方法
+
+### 8、业务模块开发
 

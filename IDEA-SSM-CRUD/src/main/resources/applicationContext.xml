@@ -36,6 +36,11 @@
         <!--扫描所有dao接口-->
         <property name="basePackage" value="com.sayyes.dao"/>
     </bean>
+    <!--sqlsession批量处理-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+        <constructor-arg name="executorType" value="BATCH"></constructor-arg>
+    </bean>
 
     <!--事务控制的配置-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -55,7 +60,7 @@
             <!--*代表所有方法都是事物方法-->
             <tx:method name="*"/>
             <!--以get开始的所有方法-->
-            <tx:method name="get" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
         </tx:attributes>
     </tx:advice>
     <!--spring配置文件的核心点（数据源、与mybatis的整合、事物控制）-->
