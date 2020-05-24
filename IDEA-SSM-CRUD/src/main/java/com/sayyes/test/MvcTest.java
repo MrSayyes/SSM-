@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:applicationContext.xml", "file:WEB-INF/dispatcherServlet-servlet.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext.xml","file:F:/gitWorkspace/SpringMVC-Spring-MyBatis/IDEA-SSM-CRUD/src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
 public class MvcTest {
     //传入springmvc的ioc
     @Autowired
@@ -41,27 +41,24 @@ public class MvcTest {
     //测试方法
     @Test
     public void testPage() throws Exception {
-        System.out.println("11111111111111111111111111111111111111111");
+        //模拟请求拿到返回值
+        // uri=emps,param=pn{1}
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/emps").param("pn", "1")).andReturn();
+        //取请求对象
+        MockHttpServletRequest request = result.getRequest();
+        //取请求对象
+        PageInfo pi = (PageInfo) request.getAttribute("pageInfo");
 
-//
-//        //模拟请求拿到返回值
-//        // uri=emps,param=pn{1}
-//        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/emps").param("pn", "1")).andReturn();
-//        //取请求对象
-//        MockHttpServletRequest request = result.getRequest();
-//        //取请求对象
-//        PageInfo pi = (PageInfo) request.getAttribute("pageInfo");
-//
-//        //分页信息
-//        System.out.println("当前页码：" + pi.getPageNum());
-//        System.out.println("总页码：" + pi.getPages());
-//        System.out.println("总记录数:" + pi.getTotal());
-//
-//        //员工数据
-//        List<Employee> list = pi.getList();
-//        for (Employee employee : list) {
-//            System.out.println(employee.toString());
-//        }
+        //分页信息
+        System.out.println("当前页码：" + pi.getPageNum());
+        System.out.println("总页码：" + pi.getPages());
+        System.out.println("总记录数:" + pi.getTotal());
+
+        //员工数据
+        List<Employee> list = pi.getList();
+        for (Employee employee : list) {
+            System.out.println(employee.toString());
+        }
 
     }
 

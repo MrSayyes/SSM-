@@ -90,5 +90,13 @@
             <artifactId>pagehelper</artifactId>
             <version>5.0.0</version>
         </dependency>
+
+        <!--这里是lombok注解插件使用-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

@@ -20,7 +20,9 @@ import java.util.List;
  * @date 2020/4/22
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml","file:dispatcherServlet-servlet.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext.xml","file:F:/gitWorkspace/SpringMVC-Spring-MyBatis/IDEA-SSM-CRUD/src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
+
+//,"file:dispatcherServlet-servlet.xml"
 public class MybatisTest {
     @Autowired
     DepartmentMapper departmentMapper;
@@ -67,6 +69,7 @@ public class MybatisTest {
             System.out.println(employee1.toString());
         }
 
+        System.out.println(this.getClass().getResource("Mybatis.java"));
     }
 }
 
